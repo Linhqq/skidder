@@ -1,14 +1,12 @@
-from flask import Flask, request, jsonify
 import requests
+from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
 # Định nghĩa các API và các URL tương ứng
 api_endpoints = {
     "https://paste-drop.com": "https://et.goatbypassers.xyz/api/adlinks/bypass?url=",
-    "https://linkvertise.com": "http://45.90.13.151:6041/?url=",
-    "https://direct-link.net": "https://et.goatbypassers.xyz/api/adlinks/bypass?url=",
-    "https://link-center.net": "https://et.goatbypassers.xyz/api/adlinks/bypass?url=",
+    "https://pastebin.com": "https://et.goatbypassers.xyz/api/adlinks/bypass?url=",
     "https://mobile.codex.lol/?token=": "https://et.goatbypassers.xyz/api/adlinks/bypass?url=",
     "https://rekonise.com": "https://et.goatbypassers.xyz/api/adlinks/bypass?url=",
     "https://sub2Unlock.com": "https://et.goatbypassers.xyz/api/adlinks/bypass?url=",
@@ -17,7 +15,8 @@ api_endpoints = {
     "https://www.mediafire.com/": "https://et.goatbypassers.xyz/api/adlinks/bypass?url=",
     "https://gateway.platoboost.com/a/8?id=": "http://45.90.13.151:6041/?url=",
     "https://gateway.platoboost.com/a/2569?id=": "http://45.90.13.151:6041/?url=",
-    "https://flux.li/android/external/start.php?HWID=": "https://kakansnks-f168r6ieh-my-team-7fa79d02.vercel.app/api/fluxus?link="
+    "https://flux.li/android/external/start.php?HWID=": "https://kakansnks-f168r6ieh-my-team-7fa79d02.vercel.app/api/fluxus?link=",
+    "https://banana-hub.xyz": "http://45.90.13.151:6132/api/bypass?link="  # Thêm endpoint cho bananahub
 }
 
 def select_api(link):
@@ -31,7 +30,11 @@ def bypass_link(link):
     if api is None:
         return {"key": "Unsupported URL"}
 
-    full_url = f"{api}{link}"
+    if api == "http://45.90.13.151:6132/api/bypass?link=":
+        full_url = f"{api}{link}&api_key=goatbypassersontop"
+    else:
+        full_url = f"{api}{link}"
+    
     try:
         response = requests.get(full_url)
         response.raise_for_status()
@@ -48,10 +51,9 @@ def bypass_link(link):
     elif api == "https://kakansnks-f168r6ieh-my-team-7fa79d02.vercel.app/api/fluxus?link=":
         if 'execution_time' in data:
             data = {"key": data.get('key'), "time": data['execution_time']}
-    elif api == "http://45.90.13.151:6041/?url=":
-        # Chuyển đổi kết quả từ target.json sang key.json cho linkvertise.com
-        if 'target' in data:
-            data = {"key": data['target']}
+    elif api == "http://45.90.13.151:6132/api/bypass?link=":  # Xử lý cho bananahub
+        if 'key' in data:
+            data = {"key": data['key']}
     
     return data
 
