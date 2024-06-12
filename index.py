@@ -16,7 +16,10 @@ api_endpoints = {
     "https://gateway.platoboost.com/a/8?id=": "http://45.90.13.151:6041/?url=",
     "https://gateway.platoboost.com/a/2569?id=": "http://45.90.13.151:6041/?url=",
     "https://flux.li/android/external/start.php?HWID=": "https://kakansnks-f168r6ieh-my-team-7fa79d02.vercel.app/api/fluxus?link=",
-    "https://banana-hub.xyz": "http://45.90.13.151:6132/api/bypass?link="  # Thêm endpoint cho bananahub
+    "https://banana-hub.xyz": "http://45.90.13.151:6132/api/bypass?link=",
+    "https://linkvertise.com": "http://45.90.13.151:6132/api/bypass?link=",
+    "https://direct-link.net": "http://45.90.13.151:6132/api/bypass?link=",  # Thêm endpoint cho direct-link
+    "https://link-center.net": "http://45.90.13.151:6132/api/bypass?link="   # Thêm endpoint cho link-center
 }
 
 def select_api(link):
@@ -30,7 +33,9 @@ def bypass_link(link):
     if api is None:
         return {"key": "Unsupported URL"}
 
-    if api == "http://45.90.13.151:6132/api/bypass?link=":
+    if api in [
+        "http://45.90.13.151:6132/api/bypass?link=",
+    ]:
         full_url = f"{api}{link}&api_key=goatbypassersontop"
     else:
         full_url = f"{api}{link}"
@@ -51,7 +56,7 @@ def bypass_link(link):
     elif api == "https://kakansnks-f168r6ieh-my-team-7fa79d02.vercel.app/api/fluxus?link=":
         if 'execution_time' in data:
             data = {"key": data.get('key'), "time": data['execution_time']}
-    elif api == "http://45.90.13.151:6132/api/bypass?link=":  # Xử lý cho bananahub
+    elif api == "http://45.90.13.151:6132/api/bypass?link=":  # Xử lý cho bananahub và linkvertise
         if 'key' in data:
             data = {"key": data['key']}
     
