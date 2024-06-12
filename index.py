@@ -6,10 +6,9 @@ app = Flask(__name__)
 # Định nghĩa các API và các URL tương ứng
 api_endpoints = {
     "https://paste-drop.com": "https://et.goatbypassers.xyz/api/adlinks/bypass?url=",
- "https://paste-drop.com": "https://et.goatbypassers.xyz/api/adlinks/bypass?url=",
- "https://linkvertise.com": "http://45.90.13.151:6041/?url=",
+    "https://linkvertise.com": "http://45.90.13.151:6041/?url=",
     "https://direct-link.net": "https://et.goatbypassers.xyz/api/adlinks/bypass?url=",
- "https://link-center.net/": "https://et.goatbypassers.xyz/api/adlinks/bypass?url=",
+    "https://link-center.net": "https://et.goatbypassers.xyz/api/adlinks/bypass?url=",
     "https://mobile.codex.lol/?token=": "https://et.goatbypassers.xyz/api/adlinks/bypass?url=",
     "https://rekonise.com": "https://et.goatbypassers.xyz/api/adlinks/bypass?url=",
     "https://sub2Unlock.com": "https://et.goatbypassers.xyz/api/adlinks/bypass?url=",
@@ -49,6 +48,10 @@ def bypass_link(link):
     elif api == "https://kakansnks-f168r6ieh-my-team-7fa79d02.vercel.app/api/fluxus?link=":
         if 'execution_time' in data:
             data = {"key": data.get('key'), "time": data['execution_time']}
+    elif api == "http://45.90.13.151:6041/?url=":
+        # Chuyển đổi kết quả từ target.json sang key.json cho linkvertise.com
+        if 'target' in data:
+            data = {"key": data['target']}
     
     return data
 
